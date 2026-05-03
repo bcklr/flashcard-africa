@@ -22,10 +22,11 @@
 
   <div class="card-container">
     <div class="card" id="card">
-      <div class="card-face front" id="card-front">
-        <p id="question-text">Question goes here</p>
-        <span class="hint">Click to flip</span>
-      </div>
+     <div class="card-face front" id="card-front">
+  <p id="question-text">Question goes here</p>
+  <p class="hint-text hidden" id="hint-text"></p>
+  <span class="hint">Click flip or Use the button</span>
+</div>
       <div class="card-face back" id="card-back">
         <p id="answer-text">Answer goes here</p>
       </div>
@@ -34,6 +35,7 @@
 
   <div class="controls">
     <button id="prev-btn">← Prev</button>
+    <button id="hint-btn">? Hint</button
     <button id="flip-btn">Flip</button>
     <button id="next-btn">Next →</button>
   </div>
