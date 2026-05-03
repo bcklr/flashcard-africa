@@ -119,7 +119,6 @@ function loadCard() {
   document.getElementById('known-counter').textContent =
     `Known: ${state.known.size}`;
 
-const cardEl = document.getElementById('card');
   cardEl.classList.remove('flipped');
   state.flipped = false;
 }
@@ -207,11 +206,11 @@ document.getElementById('reset-btn').addEventListener('click', function() {
   state.deck = [...cards];
   state.current = 0;
   state.flipped = false;
-  state.known = new set();
+  state.known = new Set();
   document.querySelector ('.card-container').classList.remove('hidden');
   document.querySelector ('.controls').classList.remove('hidden');
   document.querySelector ('.controls.secondary').classList.remove('hidden');
-  document.querySelector ('.stats.').classList.remove('hidden');
+  document.querySelector ('.stats').classList.remove('hidden');
   document.getElementById ('summary').classList.add('hidden');
   loadCard();
 });
