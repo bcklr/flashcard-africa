@@ -105,7 +105,7 @@ let state = {
   deck: [...cards],
   current: 0,
   flipped: false,
-  known: new Set ()
+  known: new Set ();
 };
 
 function loadCard() {
@@ -130,8 +130,8 @@ function showSummary() {
   document.querySelector('.controls.secondary').classList.add('hidden');
   document.querySelector('.stats').classList.add('hidden');
   document.getElementById('summary').classList.remove('hidden');
-  document.getElementById('summary-text').textcontent =
-    `You marked ${state.known.size} out of ${card.length} cards as known. Keep going!`;
+  document.getElementById('summary-text').textContent =
+    `You marked ${state.known.size} out of ${cards.length} cards as known. Keep going!`;
 }
 
 const cardEl = document.getElementById('card');
