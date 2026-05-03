@@ -164,7 +164,7 @@ cardEl.addEventListener('click', function() {
   state.flipped = !state.flipped;
   cardEl.style.transform = '';
   cardEl.classList.toggle('flipped');
-  )};
+  });
 
 document.getElementById('hint-btn').addEventListener('click', function() {
   document.getElementById('hint-text').classList.toggle('hidden');
