@@ -151,7 +151,7 @@ container.addEventListener('mousemove', function(e) {
 
 container.addEventListener('mouseleave', function() {
   if (state.flipped) return;
-  cardEl.style.transform = 'rotateX(0deg) rotateY(0deg)`;
+  cardEl.style.transform = `rotateX(0deg) rotateY(0deg)`;
 });
 
 document.getElementById('flip-btn').addEventListener('click', function() {
