@@ -105,7 +105,7 @@ let state = {
   deck: [...cards],
   current: 0,
   flipped: false,
-  known: new Set ();
+  known: new Set ()
 };
 
 function loadCard() {
