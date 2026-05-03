@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Africa Flashcards</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
 
+<div class="app">
+
+  <header>
+    <h1>Africa Facts & History</h1>
+    <p class="subtitle">Test Your Knowledge</p>
+  </header>
+
+  <div class="stats">
+    <span id="card-counter">Card 1 of 20</span>
+    <span id="known-counter">Known: 0</span>
+  </div>
+
+  <div class="card-container">
+    <div class="card" id="card">
+      <div class="card-face front" id="card-front">
+        <p id="question-text">Question goes here</p>
+        <span class="hint">Click to flip</span>
+      </div>
+      <div class="card-face back" id="card-back">
+        <p id="answer-text">Answer goes here</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="prev-btn">← Prev</button>
+    <button id="flip-btn">Flip</button>
+    <button id="next-btn">Next →</button>
+  </div>
+
+  <div class="controls secondary">
+    <button id="known-btn">✓ Mark as Known</button>
+    <button id="shuffle-btn">⇄ Shuffle</button>
+    <button id="reset-btn">↺ Reset</button>
+  </div>
+
+  <div class="summary hidden" id="summary">
+    <h2>Session Complete!</h2>
+    <p id="summary text"></p>
+    <button id="restart-btn">Start Over</button>
+  </div>
+
+  <script src="script.js"></script>
+  </body>
+</html>
