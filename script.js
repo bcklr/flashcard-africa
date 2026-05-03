@@ -119,8 +119,8 @@ function loadCard() {
   document.getElementById('known-counter').textContent =
     `Known: ${state.known.size}`;
 
-const cardE1 = document.getElementById('card');
-  cardE1.classList.remove('flipped');
+const cardEl = document.getElementById('card');
+  cardEl.classList.remove('flipped');
   state.flipped = false;
 }
 
@@ -134,7 +134,7 @@ function showSummary() {
     `You marked ${state.known.size} out of ${card.length} cards as known. Keep going!`;
 }
 
-const cardE1 = document.getElementById('card');
+const cardEl = document.getElementById('card');
 const container = document.querySelector('.card-container');
 
 container.addEventListener('mousemove', function(e) {
@@ -146,24 +146,24 @@ container.addEventListener('mousemove', function(e) {
   const centerY = rect.height / 2;
   const rotateX = ((y - centerY) / centerY) * -10;
   const rotateY = (( x - centerX) / centerX) * 10;
-  cardE1.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  cardEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 });
 
 container.addEventListener('mouseleave', function() {
   if (state.flipped) return;
-  cardE1.style.transform = 'rotateX(0deg) rotateY(0deg)`;
+  cardEl.style.transform = 'rotateX(0deg) rotateY(0deg)`;
 });
 
 document.getElementById('flip-btn').addEventListener('click', function() {
   state.flipped = !state.flipped;
-  cardE1.style.transform = '';
-  cardE1.classList.toggle('flipped');
+  cardEl.style.transform = '';
+  cardEl.classList.toggle('flipped');
 });
 
-cardE1.addEventListener('click', function() {
+cardEl.addEventListener('click', function() {
   state.flipped = !state.flipped;
-  cardE1.style.transform = '';
-  cardE1.classList.toggle('flipped');
+  cardEl.style.transform = '';
+  cardEl.classList.toggle('flipped');
   )};
 
 document.getElementById('hint-btn').addEventListener('click', function() {
