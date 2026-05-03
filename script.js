@@ -168,7 +168,7 @@ cardEl.addEventListener('click', function() {
 
 document.getElementById('hint-btn').addEventListener('click', function() {
   document.getElementById('hint-text').classList.toggle('hidden');
-  )};
+});
 
 document.getElementById('next-btn').addEventListener('click', function() {
   if (state.current < state.deck.length - 1) {
