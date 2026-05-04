@@ -1,5 +1,5 @@
 const cards = [
- {
+  {
     question: "What ancient African kingdom was known as the 'Land of Gold' and controlled trans-Saharan trade routes?",
     answer: "The Ghana Empire (400–1200 AD), located in modern-day Mauritania and Mali.",
     hint: "It collapsed before the Mali Empire rose."
@@ -108,7 +108,7 @@ let state = {
   known: new Set()
 };
 
-function loadCard() {
+function loadCard(cardEl) {
   const card = state.deck[state.current];
   document.getElementById('question-text').textContent = card.question;
   document.getElementById('answer-text').textContent = card.answer;
@@ -118,105 +118,113 @@ function loadCard() {
     `Card ${state.current + 1} of ${state.deck.length}`;
   document.getElementById('known-counter').textContent =
     `Known: ${state.known.size}`;
-
   cardEl.classList.remove('flipped');
+  cardEl.style.transform = '';
   state.flipped = false;
 }
 
 function showSummary() {
   document.querySelector('.card-container').classList.add('hidden');
-  document.querySelector('.controls').classList.add('hidden');
+  document.querySelector('.controls.primary').classList.add('hidden');
   document.querySelector('.controls.secondary').classList.add('hidden');
   document.querySelector('.stats').classList.add('hidden');
   document.getElementById('summary').classList.remove('hidden');
   document.getElementById('summary-text').textContent =
-    `You marked ${state.known.size} out of ${cards.length} cards as known. Keep going!`;
+    `You marked ${state.known.size} out of ${cards.length} cards as known. Keep studying!`;
 }
 
-const cardEl = document.getElementById('card');
-const container = document.querySelector('.card-container');
+document.addEventListener('DOMContentLoaded', function() {
 
-container.addEventListener('mousemove', function(e) {
-  if (state.flipped) return;
-  const rect = container.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const centerX = rect.width / 2;
-  const centerY = rect.height / 2;
-  const rotateX = ((y - centerY) / centerY) * -10;
-  const rotateY = (( x - centerX) / centerX) * 10;
-  cardEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
+  const cardEl = document.getElementById('card');
+  const container = document.querySelector('.card-container');
 
-container.addEventListener('mouseleave', function() {
-  if (state.flipped) return;
-  cardEl.style.transform = `rotateX(0deg) rotateY(0deg)`;
-});
+  loadCard(cardEl);
 
-document.getElementById('flip-btn').addEventListener('click', function() {
-  state.flipped = !state.flipped;
-  cardEl.style.transform = '';
-  cardEl.classList.toggle('flipped');
-});
-
-cardEl.addEventListener('click', function() {
-  state.flipped = !state.flipped;
-  cardEl.style.transform = '';
-  cardEl.classList.toggle('flipped');
+  container.addEventListener('mousemove', function(e) {
+    if (state.flipped) return;
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    cardEl.style.transform =
+      `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
   });
 
-document.getElementById('hint-btn').addEventListener('click', function() {
-  document.getElementById('hint-text').classList.toggle('hidden');
+  container.addEventListener('mouseleave', function() {
+    if (state.flipped) return;
+    cardEl.style.transform = '';
+  });
+
+  cardEl.addEventListener('click', function() {
+    state.flipped = !state.flipped;
+    cardEl.style.transform = '';
+    cardEl.classList.toggle('flipped');
+  });
+
+  document.getElementById('flip-btn').addEventListener('click', function() {
+    state.flipped = !state.flipped;
+    cardEl.style.transform = '';
+    cardEl.classList.toggle('flipped');
+  });
+
+  document.getElementById('hint-btn').addEventListener('click', function() {
+    document.getElementById('hint-text').classList.toggle('hidden');
+  });
+
+  document.getElementById('prev-btn').addEventListener('click', function() {
+    if (state.current > 0) {
+      state.current--;
+      loadCard(cardEl);
+    }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', function() {
+    if (state.current < state.deck.length - 1) {
+      state.current++;
+      loadCard(cardEl);
+    } else {
+      showSummary();
+    }
+  });
+
+  document.getElementById('known-btn').addEventListener('click', function() {
+    const card = state.deck[state.current];
+    state.known.add(card.question);
+    if (state.current < state.deck.length - 1) {
+      state.current++;
+      loadCard(cardEl);
+    } else {
+      showSummary();
+    }
+  });
+
+  document.getElementById('shuffle-btn').addEventListener('click', function() {
+    for (let i = state.deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [state.deck[i], state.deck[j]] = [state.deck[j], state.deck[i]];
+    }
+    state.current = 0;
+    loadCard(cardEl);
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', function() {
+    state.deck = [...cards];
+    state.current = 0;
+    state.flipped = false;
+    state.known = new Set();
+    document.querySelector('.card-container').classList.remove('hidden');
+    document.querySelector('.controls.primary').classList.remove('hidden');
+    document.querySelector('.controls.secondary').classList.remove('hidden');
+    document.querySelector('.stats').classList.remove('hidden');
+    document.getElementById('summary').classList.add('hidden');
+    loadCard(cardEl);
+  });
+
+  document.getElementById('restart-btn').addEventListener('click', function() {
+    document.getElementById('reset-btn').click();
+  });
+
 });
-
-document.getElementById('next-btn').addEventListener('click', function() {
-  if (state.current < state.deck.length - 1) {
-    state.current++;
-    loadCard();
-  } else {
-    showSummary();
-  }
-});
-
-document.getElementById('known-btn').addEventListener('click', function() {
-  const card = state.deck[state.current];
-  state.known.add(card.question);
-  document.getElementById('known-counter').textContent =
-    `Known: ${state.known.size}`;
-
-       if (state.current < state.deck.length - 1) {
-         state.current++;
-         loadCard();
-       } else {
-         showSummary();
-       }
-});
-
-
-document.getElementById('shuffle-btn').addEventListener('click', function() {
-  for (let i = state.deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i+1));
-    [state.deck[i], state.deck[j]] = [state.deck[j], state.deck[i]];
-      }
-  state.current = 0;
-  loadCard();
-});
-
-document.getElementById('reset-btn').addEventListener('click', function() {
-  state.deck = [...cards];
-  state.current = 0;
-  state.flipped = false;
-  state.known = new Set();
-  document.querySelector ('.card-container').classList.remove('hidden');
-  document.querySelector ('.controls').classList.remove('hidden');
-  document.querySelector ('.controls.secondary').classList.remove('hidden');
-  document.querySelector ('.stats').classList.remove('hidden');
-  document.getElementById ('summary').classList.add('hidden');
-  loadCard();
-});
-
-document.getElementById('restart-btn').addEventListener('click', function() {
-  document.getElementById('reset-btn').click();
-      });
-
-loadCard(); 
