@@ -181,24 +181,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  document.getElementById('next-btn').addEventListener('click', function() {
-  if (state.current < state.deck.length - 1) {
-    state.current++;
-    loadCard(cardEl);
-  } else {
-    showSummary();
-  }
-});
-    }, 350);
-  } else {
+ document.getElementById('next-btn').addEventListener('click', function() {
     if (state.current < state.deck.length - 1) {
       state.current++;
       loadCard(cardEl);
     } else {
       showSummary();
     }
-  }
-});
+  });
 
   document.getElementById('known-btn').addEventListener('click', function() {
     const card = state.deck[state.current];
